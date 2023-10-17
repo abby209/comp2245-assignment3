@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Select all squares in the grid using a CSS selector
   const gridSquares = document.querySelectorAll(".square");
+  
+  const gameState = ["", "", "", "", "", "", "", "", ""];
+  const gridSquares = document.querySelectorAll(".square");
+  let currentPlayer = "X";
 
   // Loop through each square and add the "square" class
   gridSquares.forEach(function (square) {
@@ -31,4 +35,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+  
+  gridSquares.forEach(function (square, index) {
+    // Add mouseover event listener to apply the hover effect
+    square.addEventListener("mouseover", function () {
+      if (gameState[index] === "") {
+        square.classList.add("hover");
+      }
+    });
+
+    // Add mouseout event listener to remove the hover effect
+    square.addEventListener("mouseout", function () {
+      if (gameState[index] === "") {
+        square.classList.remove("hover");
+      }
+    });
+
+    square.addEventListener("click", function () {
+      if (gameState[index] === "") {
+        gameState[index] = currentPlayer;
+        square.textContent = currentPlayer;
+        square.classList.add(currentPlayer);
+        square.classList.remove("hover");
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+      }
+    });
+  });
+  
 });
