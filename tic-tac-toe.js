@@ -150,7 +150,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to check for a win
   function checkForWin(player) {
-    // ... (your existing checkForWin function)
+    const winPatterns = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (const pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      if (gameState[a] === player && gameState[b] === player && gameState[c] === player) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   // Function to update the status message
@@ -176,8 +194,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const newGameButton = document.getElementById("new-game-button");
   newGameButton.addEventListener("click", resetGame);
 
+  // Add a click event listener to each square
   gridSquares.forEach(function (square, index) {
-    // ... (your existing code for squares)
+    // Mouseover event to apply the hover effect
+    square.addEventListener("mouseover", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        square.classList.add("hover");
+      }
+    });
+
+    // Mouseout event to remove the hover effect
+    square.addEventListener("mouseout", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        square.classList.remove("hover");
+      }
+    });
+
+    // Click event to place X or O and toggle players
+    square.addEventListener("click", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        // Update the game state array and the visual representation
+        gameState[index] = currentPlayer;
+        square.textContent = currentPlayer;
+        square.classList.add(currentPlayer);
+        square.classList.remove("hover");
+
+        // Toggle the current player (X to O or O to X)
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+      }
+    });
   });
 });
 
@@ -189,7 +237,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to check for a win
   function checkForWin(player) {
-    // ... (your existing checkForWin function)
+    const winPatterns = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (const pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      if (gameState[a] === player && gameState[b] === player && gameState[c] === player) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   // Function to update the status message
