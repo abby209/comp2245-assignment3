@@ -142,3 +142,106 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const gameState = ["", "", "", "", "", "", "", "", ""];
+  const gridSquares = document.querySelectorAll(".square");
+  let currentPlayer = "X";
+  let gameWon = false;
+
+  // Function to check for a win
+  function checkForWin(player) {
+    // ... (your existing checkForWin function)
+  }
+
+  // Function to update the status message
+  function updateStatusMessage(message) {
+    const status = document.getElementById("status");
+    status.textContent = message;
+    status.classList.add("you-won");
+  }
+
+  // Function to reset the game
+  function resetGame() {
+    gameState.fill(""); // Clear the game state
+    gridSquares.forEach(function (square) {
+      square.textContent = ""; // Remove X and O from the squares
+      square.classList.remove("X", "O", "hover"); // Remove class styling
+    });
+    gameWon = false; // Reset gameWon flag
+    updateStatusMessage("Move your mouse over a square and click to play an X or an O.");
+    currentPlayer = "X"; // Reset the current player to X
+  }
+
+  // Add a click event listener to the "New Game" button
+  const newGameButton = document.getElementById("new-game-button");
+  newGameButton.addEventListener("click", resetGame);
+
+  gridSquares.forEach(function (square, index) {
+    // ... (your existing code for squares)
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const gameState = ["", "", "", "", "", "", "", "", ""];
+  const gridSquares = document.querySelectorAll(".square");
+  let currentPlayer = "X";
+  let gameWon = false;
+
+  // Function to check for a win
+  function checkForWin(player) {
+    // ... (your existing checkForWin function)
+  }
+
+  // Function to update the status message
+  function updateStatusMessage(message) {
+    const status = document.getElementById("status");
+    status.textContent = message;
+    status.classList.add("you-won");
+  }
+
+  // Function to reset the game
+  function resetGame() {
+    gameState.fill(""); // Clear the game state
+    gridSquares.forEach(function (square) {
+      square.textContent = ""; // Remove X and O from the squares
+      square.classList.remove("X", "O", "hover"); // Remove class styling
+    });
+    gameWon = false; // Reset gameWon flag
+    updateStatusMessage("Move your mouse over a square and click to play an X or an O.");
+    currentPlayer = "X"; // Reset the current player to X
+  }
+
+  // Add a click event listener to the "New Game" button
+  const newGameButton = document.getElementById("new-game-button");
+  newGameButton.addEventListener("click", resetGame);
+
+  gridSquares.forEach(function (square, index) {
+    square.addEventListener("click", function () {
+      // Check if the square is empty and the game is not won
+      if (gameState[index] === "" && !gameWon) {
+        gameState[index] = currentPlayer;
+        square.textContent = currentPlayer;
+        square.classList.add(currentPlayer);
+        square.classList.remove("hover");
+
+        if (checkForWin(currentPlayer)) {
+          gameWon = true;
+          updateStatusMessage(`Congratulations! ${currentPlayer} is the Winner!`);
+        } else {
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+        }
+      }
+    });
+
+    square.addEventListener("mouseover", function () {
+      if (gameState[index] === "" && !gameWon) {
+        square.classList.add("hover");
+      }
+    });
+
+    square.addEventListener("mouseout", function () {
+      square.classList.remove("hover");
+    });
+  });
+});
+
