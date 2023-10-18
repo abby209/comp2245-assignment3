@@ -34,3 +34,48 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize the game state array (3x3 grid) with empty squares
+  const gameState = ["", "", "", "", "", "", "", "", ""];
+
+  // Select all squares in the grid using a CSS selector
+  const gridSquares = document.querySelectorAll(".square");
+
+  // Initialize a variable to keep track of the current player (X or O)
+  let currentPlayer = "X";
+
+  // Add a click event listener to each square
+  gridSquares.forEach(function (square, index) {
+    // Mouseover event to apply the hover effect
+    square.addEventListener("mouseover", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        square.classList.add("hover");
+      }
+    });
+
+    // Mouseout event to remove the hover effect
+    square.addEventListener("mouseout", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        square.classList.remove("hover");
+      }
+    });
+
+    // Click event to place X or O and toggle players
+    square.addEventListener("click", function () {
+      // Check if the square is empty (not already marked with X or O)
+      if (gameState[index] === "") {
+        // Update the game state array and the visual representation
+        gameState[index] = currentPlayer;
+        square.textContent = currentPlayer;
+        square.classList.add(currentPlayer);
+        square.classList.remove("hover");
+
+        // Toggle the current player (X to O or O to X)
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+      }
+    });
+  });
+});
